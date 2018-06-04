@@ -1,7 +1,5 @@
 package me.kevincampos.catsdagger.favorites;
 
-import android.content.Context;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,12 +7,12 @@ public class GetFavoritesUseCase {
 
     private FavoriteRepository favoriteRepository;
 
-    public interface Callback {
-        void favoriteUrlsUpdated(List<String> favoriteUrls);
+    public GetFavoritesUseCase(FavoriteRepository favoriteRepository) {
+        this.favoriteRepository = favoriteRepository;
     }
 
-    public GetFavoritesUseCase(Context context, String userToken) {
-        favoriteRepository = new FavoriteRepository(context, userToken);
+    public interface Callback {
+        void favoriteUrlsUpdated(List<String> favoriteUrls);
     }
 
     /**

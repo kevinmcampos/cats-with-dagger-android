@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import me.kevincampos.catsdagger.login.LoginService;
 import me.kevincampos.catsdagger.login.LoginUseCase;
 
 /**
@@ -54,7 +55,8 @@ public class LoginActivity extends AppCompatActivity {
         String username = usernameActv.getText().toString();
         String password = passwordEt.getText().toString();
 
-        LoginUseCase loginUseCase = new LoginUseCase();
+        LoginService loginService = new LoginService();
+        LoginUseCase loginUseCase = new LoginUseCase(loginService);
         String token = loginUseCase.login(username, password);
 
         if (token == null) {

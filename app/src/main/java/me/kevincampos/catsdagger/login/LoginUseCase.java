@@ -4,6 +4,12 @@ import android.util.Log;
 
 public class LoginUseCase {
 
+    private LoginService loginService;
+
+    public LoginUseCase(LoginService loginService) {
+        this.loginService = loginService;
+    }
+
     /**
      * @param username
      * @param password
@@ -14,7 +20,6 @@ public class LoginUseCase {
         Log.d("LoginUseCase", "Login: " + username + ", " + password);
 
         try {
-            LoginService loginService = new LoginService();
             String token = loginService.login(username, password);
             Log.d("LoginUseCase", "Login token: " + token);
             return token;

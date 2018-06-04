@@ -1,15 +1,13 @@
 package me.kevincampos.catsdagger.favorites;
 
-import android.content.Context;
-
 import java.util.List;
 
 public class AddFavoriteUseCase {
 
     private FavoriteRepository favoriteRepository;
 
-    public AddFavoriteUseCase(Context context, String userToken) {
-        favoriteRepository = new FavoriteRepository(context, userToken);
+    public AddFavoriteUseCase(FavoriteRepository favoriteRepository) {
+        this.favoriteRepository = favoriteRepository;
     }
 
     /**
