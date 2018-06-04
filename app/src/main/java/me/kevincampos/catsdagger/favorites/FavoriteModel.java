@@ -1,4 +1,4 @@
-package me.kevincampos.catsdagger;
+package me.kevincampos.catsdagger.favorites;
 
 public class FavoriteModel {
     private long timeAdded;
