@@ -1,7 +1,5 @@
 package me.kevincampos.catsdagger.cat_api;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +23,6 @@ public class FetchCatImagesUseCase {
             public void response(CatImagesModel response) {
                 ArrayList<String> imageUrls = new ArrayList<>();
                 for (CatImageModel img : response.catImages) {
-                    Log.d(TAG, "Found: " + img.url);
                     imageUrls.add(img.url);
                 }
                 callback.imagesUrls(imageUrls);
