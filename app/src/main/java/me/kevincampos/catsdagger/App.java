@@ -1,21 +1,17 @@
 package me.kevincampos.catsdagger;
 
 import android.app.Application;
+import android.content.Context;
 
-import me.kevincampos.catsdagger.cat_api.CacheTheCatAPI;
-import me.kevincampos.catsdagger.cat_api.RetrofitTheCatAPI;
-import me.kevincampos.catsdagger.cat_api.TheCatAPI;
+import me.kevincampos.catsdagger.di.AppDIComponent;
+import me.kevincampos.catsdagger.di.AppDIModule;
+import me.kevincampos.catsdagger.di.CachedRetrofitCatAPIDIModule;
 import me.kevincampos.catsdagger.favorites.FavoriteRepository;
 import me.kevincampos.catsdagger.favorites.SharedPrefFavoritesRepository;
 
 public class App extends Application {
 
-    private static TheCatAPI theCatAPI;
     private static FavoriteRepository favoriteRepository;
-
-    public static TheCatAPI getTheCatAPI() {
-        return theCatAPI;
-    }
 
     public static FavoriteRepository getFavoriteRepository() {
         return favoriteRepository;
@@ -25,9 +21,13 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-        TheCatAPI requestCatAPI = new RetrofitTheCatAPI();
-        CacheTheCatAPI cacheCatAPI = new CacheTheCatAPI(requestCatAPI);
-        App.theCatAPI = cacheCatAPI;
+        AppDIModule appDIModule = new AppDIModule() {
+            @Override
+            public Context provideAppContext() {
+                return getApplicationContext();
+            }
+        };
+        AppDIComponent.initialize(appDIModule, new CachedRetrofitCatAPIDIModule());
     }
 
     public void initializeFavoriteRepository(String userToken) {
