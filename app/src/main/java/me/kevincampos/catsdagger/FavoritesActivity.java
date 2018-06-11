@@ -13,6 +13,7 @@ import android.view.View;
 
 import java.util.List;
 
+import me.kevincampos.catsdagger.di.UserDIComponent;
 import me.kevincampos.catsdagger.favorites.GetFavoritesUseCase;
 
 public class FavoritesActivity extends AppCompatActivity {
@@ -53,7 +54,7 @@ public class FavoritesActivity extends AppCompatActivity {
         rvAdapter = new ImagesRvAdapter(null);
         recyclerView.setAdapter(rvAdapter);
 
-        getFavoritesUseCase = new GetFavoritesUseCase(App.getFavoriteRepository());
+        getFavoritesUseCase = new GetFavoritesUseCase(UserDIComponent.get().getFavoriteRepository());
     }
 
     @Override

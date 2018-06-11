@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import me.kevincampos.catsdagger.di.AppDIComponent;
+import me.kevincampos.catsdagger.di.SharedPrefFavoriteRepoDIModule;
+import me.kevincampos.catsdagger.di.UserDIComponent;
 import me.kevincampos.catsdagger.login.LoginService;
 import me.kevincampos.catsdagger.login.LoginUseCase;
 
@@ -52,7 +55,9 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        ((App) getApplication()).destroyFavoriteRepository();
+        if (UserDIComponent.get() != null) {
+            UserDIComponent.get().close();
+        }
         super.onResume();
     }
 
@@ -68,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         if (token == null) {
             errorTv.setVisibility(View.VISIBLE);
         } else {
-            ((App) getApplication()).initializeFavoriteRepository(token);
+            UserDIComponent.initialize(new SharedPrefFavoriteRepoDIModule(AppDIComponent.get(), token));
             FavoritesActivity.launch(this, false);
         }
     }

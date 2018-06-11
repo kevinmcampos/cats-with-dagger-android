@@ -16,7 +16,7 @@ import com.plattysoft.leonids.ParticleSystem;
 import java.util.List;
 
 import me.kevincampos.catsdagger.cat_api.FetchCatImagesUseCase;
-import me.kevincampos.catsdagger.di.AppDIComponent;
+import me.kevincampos.catsdagger.di.UserDIComponent;
 import me.kevincampos.catsdagger.favorites.AddFavoriteUseCase;
 
 public class ListActivity extends AppCompatActivity {
@@ -49,9 +49,9 @@ public class ListActivity extends AppCompatActivity {
         });
         recyclerView.setAdapter(adapter);
 
-        addFavoriteUseCase = new AddFavoriteUseCase(App.getFavoriteRepository());
+        addFavoriteUseCase = new AddFavoriteUseCase(UserDIComponent.get().getFavoriteRepository());
 
-        fetchCatImagesUseCase = new FetchCatImagesUseCase(AppDIComponent.get().getTheCatAPI());
+        fetchCatImagesUseCase = new FetchCatImagesUseCase(UserDIComponent.get().getTheCatAPIService());
         fetchCatImagesUseCase.fetchImages(new FetchCatImagesUseCase.Callback() {
             @Override
             public void imagesUrls(List<String> urls) {
