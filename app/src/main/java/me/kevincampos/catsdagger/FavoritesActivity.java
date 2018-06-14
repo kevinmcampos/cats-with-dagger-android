@@ -13,7 +13,7 @@ import android.view.View;
 
 import java.util.List;
 
-import me.kevincampos.catsdagger.di.UserDIComponent;
+import me.kevincampos.catsdagger.di.FavoritesActivityDIComponent;
 import me.kevincampos.catsdagger.favorites.GetFavoritesUseCase;
 
 public class FavoritesActivity extends AppCompatActivity {
@@ -32,6 +32,10 @@ public class FavoritesActivity extends AppCompatActivity {
     private ImagesRvAdapter rvAdapter;
 
     private GetFavoritesUseCase getFavoritesUseCase;
+
+    public void injectGetFavoritesUserCase(GetFavoritesUseCase getFavoritesUseCase) {
+        this.getFavoritesUseCase = getFavoritesUseCase;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +58,7 @@ public class FavoritesActivity extends AppCompatActivity {
         rvAdapter = new ImagesRvAdapter(null);
         recyclerView.setAdapter(rvAdapter);
 
-        getFavoritesUseCase = new GetFavoritesUseCase(UserDIComponent.get().getFavoriteRepository());
+        new FavoritesActivityDIComponent().inject(this);
     }
 
     @Override
@@ -80,5 +84,4 @@ public class FavoritesActivity extends AppCompatActivity {
         getFavoritesUseCase = null;
         super.onDestroy();
     }
-
 }
