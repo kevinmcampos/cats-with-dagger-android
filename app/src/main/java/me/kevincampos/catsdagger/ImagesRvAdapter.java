@@ -42,6 +42,7 @@ public class ImagesRvAdapter extends RecyclerView.Adapter<ImagesRvAdapter.ImageV
         notifyDataSetChanged(); // This is bad. Used for simplicity.
     }
 
+    @NonNull
     @Override
     public ImageVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
@@ -59,7 +60,7 @@ public class ImagesRvAdapter extends RecyclerView.Adapter<ImagesRvAdapter.ImageV
         picasso.load(imageUrl).into(holder.imageIv);
 
         if (onClickListener != null) {
-            holder.imageIv.setOnClickListener(new View.OnClickListener() {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = holder.getAdapterPosition();
