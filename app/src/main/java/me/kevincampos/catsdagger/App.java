@@ -20,6 +20,9 @@ public class App extends Application {
             }
         };
         AppDIComponent.initialize(appDIModule, new CachedRetrofitCatAPIDIModule());
+
+        // Option if you don't want to cache the cat API responses.
+        // AppDIComponent.initialize(appDIModule, new RetrofitCatApiDIModule());
     }
 
 }

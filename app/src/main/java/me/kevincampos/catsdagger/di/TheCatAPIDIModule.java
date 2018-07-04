@@ -1,9 +1,18 @@
 package me.kevincampos.catsdagger.di;
 
+import javax.inject.Singleton;
+
+import dagger.Module;
+import dagger.Provides;
 import me.kevincampos.catsdagger.cat_api.TheCatAPI;
 
-public interface TheCatAPIDIModule {
+@Module
+public class TheCatAPIDIModule {
 
-    TheCatAPI provideTheCatAPI();
+    @Provides
+    @Singleton
+    public TheCatAPI provideTheCatAPI() {
+        throw new EmptyModuleException();
+    }
 
 }

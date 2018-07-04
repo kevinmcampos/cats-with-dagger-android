@@ -4,7 +4,7 @@ import me.kevincampos.catsdagger.cat_api.CacheTheCatAPI;
 import me.kevincampos.catsdagger.cat_api.RetrofitTheCatAPI;
 import me.kevincampos.catsdagger.cat_api.TheCatAPI;
 
-public class CachedRetrofitCatAPIDIModule implements TheCatAPIDIModule {
+public class CachedRetrofitCatAPIDIModule extends TheCatAPIDIModule {
 
     @Override
     public TheCatAPI provideTheCatAPI() {
