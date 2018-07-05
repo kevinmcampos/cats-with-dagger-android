@@ -24,7 +24,7 @@ public class ListActivityDIModule {
     public FetchCatImagesUseCase provideFetchCatImagesUseCase() {
         if (testFetchCatImagesUseCase != null) return testFetchCatImagesUseCase;
 
-        return new FetchCatImagesUseCase(userDIComponent.getTheCatAPIService());
+        return new FetchCatImagesUseCase(AppDIComponent.get().getTheCatAPI());
     }
 
 }

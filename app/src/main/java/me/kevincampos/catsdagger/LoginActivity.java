@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import me.kevincampos.catsdagger.di.AppDIComponent;
 import me.kevincampos.catsdagger.di.SharedPrefFavoriteRepoDIModule;
 import me.kevincampos.catsdagger.di.UserDIComponent;
 import me.kevincampos.catsdagger.login.LoginService;
@@ -73,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         if (token == null) {
             errorTv.setVisibility(View.VISIBLE);
         } else {
-            UserDIComponent.initialize(new SharedPrefFavoriteRepoDIModule(AppDIComponent.get(), token));
+            UserDIComponent.initialize(new SharedPrefFavoriteRepoDIModule(token));
             FavoritesActivity.launch(this, false);
         }
     }

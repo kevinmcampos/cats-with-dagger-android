@@ -1,11 +1,28 @@
 package me.kevincampos.catsdagger.di;
 
+import android.content.Context;
+
+import javax.inject.Named;
+
+import dagger.Module;
+import dagger.Provides;
+import me.kevincampos.catsdagger.UserScope;
 import me.kevincampos.catsdagger.favorites.FavoriteRepository;
 
-public interface FavoriteRepoDIModule {
+@Module
+public class FavoriteRepoDIModule {
 
-    AppDIComponent getAppDIComponent();
+    @Provides
+    @UserScope
+    FavoriteRepository provideFavoriteRepository(Context appContext, @Named("UserToken") String userToken) {
+        throw new EmptyModuleException();
+    }
 
-    FavoriteRepository provideFavoriteRepository();
+    @Provides
+    @Named("UserToken")
+    @UserScope
+    String provideUserToken() {
+        throw new EmptyModuleException();
+    }
 
 }

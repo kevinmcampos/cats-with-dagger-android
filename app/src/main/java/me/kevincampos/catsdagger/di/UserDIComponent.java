@@ -1,43 +1,40 @@
 package me.kevincampos.catsdagger.di;
 
-import me.kevincampos.catsdagger.cat_api.TheCatAPI;
+import dagger.Component;
+import me.kevincampos.catsdagger.UserScope;
 import me.kevincampos.catsdagger.favorites.FavoriteRepository;
 
-public class UserDIComponent {
+@UserScope
+@Component(modules = FavoriteRepoDIModule.class,
+        dependencies = AppDIComponent.class
+)
+public abstract class UserDIComponent {
 
     private static UserDIComponent instance;
-    private FavoriteRepoDIModule favoriteRepoDIModule;
-    private FavoriteRepository favoriteRepository;
 
     public static UserDIComponent get() {
         return UserDIComponent.instance;
     }
 
-    public static void initialize(FavoriteRepoDIModule module) {
+    public static void initialize(FavoriteRepoDIModule favoriteRepoDIModule) {
         if (UserDIComponent.get() != null) {
             throw new RuntimeException("UserDIComponent already initialized.");
         }
-        UserDIComponent.instance = new UserDIComponent(module);
+
+        UserDIComponent.instance = DaggerUserDIComponent.builder()
+                .appDIComponent(AppDIComponent.get())
+                .favoriteRepoDIModule(favoriteRepoDIModule)
+                .build();
     }
 
-    private UserDIComponent(FavoriteRepoDIModule favoriteRepoDIModule) {
-        this.favoriteRepoDIModule = favoriteRepoDIModule;
-    }
-
-    public TheCatAPI getTheCatAPIService() {
-        return this.favoriteRepoDIModule.getAppDIComponent().getTheCatAPI();
-    }
-
-    public FavoriteRepository getFavoriteRepository() {
-        if (favoriteRepository == null) {
-            favoriteRepository = favoriteRepoDIModule.provideFavoriteRepository();
-        }
-        return favoriteRepository;
-    }
+    abstract FavoriteRepository getFavoriteRepository();
 
     public void close() {
+        FavoriteRepository favoriteRepository = getFavoriteRepository();
         if (favoriteRepository != null) {
             favoriteRepository.clearChangeListener();
         }
+
+        UserDIComponent.instance = null;
     }
 }
